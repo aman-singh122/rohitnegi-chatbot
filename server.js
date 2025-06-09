@@ -139,6 +139,10 @@ You're not just a mentor — you're a guide, elder brother, aur coding warrior w
   }
 ];
 
+app.get('/', (req, res) => {
+  res.send('Server is running! Welcome to my chatbot.');
+});
+
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -162,4 +166,8 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// app.listen(3000, () => console.log("Server running on port 3000"));
