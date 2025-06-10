@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyBVBgnmQza3-ZwJiMXTs8mjPF2oU3U0GDI"
+  apiKey: process.env.GOOGLE_API_KEY
 });
 
 let conversationHistory = [
