@@ -327,6 +327,9 @@ function typeWriter(element, text, i) {
     searchInput.oninput = () => {
       renderHistory(searchInput.value);
     };
+fetch("https://rohitnegi-chatbot.onrender.com").catch((e) => {
+  console.log("Warming up the server...");
+});
 
     sendBtn.onclick = async () => {
       const userMsg = input.value.trim();
