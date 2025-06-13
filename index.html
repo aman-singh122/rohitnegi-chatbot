@@ -267,15 +267,29 @@
     }
 
     function renderMessages() {
-      chatWindow.innerHTML = "";
-      currentChat.forEach(msg => {
-        const div = document.createElement("div");
-        div.className = `message ${msg.sender}`;
-        div.textContent = msg.text;
-        chatWindow.appendChild(div);
-      });
-      chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+  chatWindow.innerHTML = "";
+  currentChat.forEach((msg, index) => {
+    const div = document.createElement("div");
+    div.className = `message ${msg.sender}`;
+
+    if (msg.sender === "bot" && index === currentChat.length - 1) {
+      typeWriter(div, msg.text, 0);
+    } else {
+      div.textContent = msg.text;
     }
+
+    chatWindow.appendChild(div);
+  });
+  chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+}
+function typeWriter(element, text, i) {
+  if (i < text.length) {
+    element.textContent += text.charAt(i);
+    chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+    setTimeout(() => typeWriter(element, text, i + 1), 20); // speed control here
+  }
+}
+
 
     function addMessage(text, sender) {
       currentChat.push({ text, sender, time: new Date() });
@@ -324,24 +338,29 @@
       currentChat.push(typingMsg);
       renderMessages();
 
-      try {
-        const res = await fetch("https://rohitnegi-chatbot.onrender.com/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMsg })
-        });
+     try {
+  const apiURL = location.hostname === "localhost"
+    ? "http://localhost:3000/chat"
+    : "https://rohitnegi-chatbot.onrender.com/chat";
 
-        if (!res.ok) throw new Error("Server error");
+  const res = await fetch(apiURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMsg })
+  });
 
-        const data = await res.json();
-        currentChat.pop();
-        addMessage(data.reply, "bot");
+  if (!res.ok) throw new Error("Server error");
 
-      } catch (error) {
-        currentChat.pop();
-        addMessage("Server se response nahi mila, try again later.", "bot");
-        console.error(error);
-      }
+  const data = await res.json();
+  currentChat.pop();
+  addMessage(data.reply, "bot");
+
+} catch (error) {
+  currentChat.pop();
+  addMessage("Server se response nahi mila, try again later.", "bot");
+  console.error(error);
+}
+
     };
 
     input.addEventListener("keydown", (e) => {
