@@ -34,12 +34,13 @@
       background: var(--bg);
       color: var(--text-color);
     }
-  #container {
+ #container {
   display: flex;
   height: 100vh;
-  max-width: 1400px;
-  margin: auto;
+  max-width: 1100px;  /* was 1400px, now narrower */
+  margin: auto;       /* centers the container */
 }
+
     #sidebar {
       width: 25%;
       background: var(--sidebar-bg);
@@ -112,22 +113,50 @@
       align-items: center;
     }
     #profile-pic {
-      width: 60px;
-      height: 60px;
+      width: 75px;
+      height: 75px;
       border-radius: 50%;
       margin-right: 10px;
     }
     #chat-window {
-      flex: 1;
-      background: var(--sidebar-bg);
-      padding: 10px;
-      border-radius: 10px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+  flex: 1;
+  background: var(--sidebar-bg) url('./rohitsircool.jpeg') no-repeat center center;
+  background-size: cover;
+  padding: 10px;
+  border-radius: 10px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+#chat-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  
+  background-color: rgba(30, 10, 60, 0.4); /* pehle 0.7 tha */
+
+
+  z-index: 0;
+}
+.message {
+  position: relative;
+  z-index: 1;
+}
+@keyframes typingFadeIn {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+.type-effect {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  animation: typingFadeIn 0.2s ease-in-out;
+}
+
     .message {
       max-width: 70%;
       padding: 10px 14px;
