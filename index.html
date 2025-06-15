@@ -31,15 +31,17 @@
     body, html {
       margin: 0; padding: 0; height: 100%;
       font-family: "Segoe UI", sans-serif;
+        padding-top: 20px; 
       background: var(--bg);
       color: var(--text-color);
     }
  #container {
   display: flex;
-  height: 100vh;
-  max-width: 1100px;  /* was 1400px, now narrower */
-  margin: auto;       /* centers the container */
+  height: calc(100vh - 50px); /* Adjusted height */
+  max-width: 1100px;
+  margin: auto;
 }
+
 
     #sidebar {
       width: 25%;
@@ -131,6 +133,99 @@
   gap: 6px;
   position: relative;
 }
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.home-button {
+  background-color: #ff6600;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-right: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* ✅ UPDATED NAVIGATION BAR CSS */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #90b4eb; /* Soft grey-blue background */
+  height: 50px;         /* Fixed height */
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+
+.home-button {
+  background-color: #d5793c;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-right: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #e65c00;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #ff6600;
+}
+
+
 #chat-window::before {
   content: "";
   position: absolute;
@@ -206,6 +301,31 @@
 </head>
 
 <body>
+  <!-- ✅ index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Main Chat UI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="navbar">
+  <div class="nav-left">
+    <a href="home.html" class="home-button">Home</a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="intro.html#profile">About Us</a></li>
+    <li><a href="home.html#nexus">Tutorials</a></li>
+    <li><a href="intro.html#contact">Contact</a></li>
+    <li><a href="https://www.coderarmy.in/">Coder Army</a></li>
+  </ul>
+</div>
+
+
+
+  <!-- ✅ REST OF YOUR CHAT UI -->
   <div id="container">
     <div id="sidebar">
       <button id="new-chat-btn">+ New Chat</button>
@@ -222,8 +342,6 @@
             <div style="font-size:13px; opacity:0.7;">Online</div>
           </div>
         </div>
-
-        <!-- 🔥 Theme + Sign-in together -->
         <div style="display: flex; align-items: center; gap: 10px;">
           <button id="theme-toggle" title="Toggle theme">&#9728;</button>
           <div id="google-signin-btn"></div>
@@ -237,6 +355,7 @@
       </div>
     </div>
   </div>
+
 
   <script>
     function handleCredentialResponse(response) {
