@@ -410,17 +410,16 @@
       </div>
     </div>
   </div>
-
 <script>
   function showToast(message) {
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => {
-    toast.remove();
-  }, 2000);
-}
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.remove();
+    }, 2000);
+  }
 
   function handleCredentialResponse(response) {
     console.log("Encoded JWT ID token: " + response.credential);
@@ -457,7 +456,6 @@
     );
   }
 
-  // 🧠 Chat logic
   const input = document.getElementById("input");
   const sendBtn = document.getElementById("send-btn");
   const chatWindow = document.getElementById("chat-window");
@@ -467,6 +465,7 @@
 
   let chatHistory = [];
   let currentChat = [];
+  let chatSessionId = Date.now();
 
   function formatTime(date) {
     let h = date.getHours();
@@ -483,13 +482,39 @@
       const div = document.createElement("div");
       div.className = `message ${msg.sender}`;
 
-      if (msg.sender === "bot" && index === currentChat.length - 1) {
-        typeWriter(div, msg.text, 0);
-      } else {
-        div.textContent = msg.text;
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "copy-btn";
+      copyBtn.innerHTML = "📋";
+      copyBtn.title = "Copy";
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(msg.text).then(() => {
+          showToast("Message copied!");
+        });
+      };
+      div.appendChild(copyBtn);
+
+      const lowerText = msg.text.toLowerCase();
+      if (
+        msg.sender === "bot" &&
+        (lowerText.includes("hahaha") || lowerText.includes("lol") || lowerText.includes("majak") || lowerText.includes("funny"))
+      ) {
+        const reactionImg = document.createElement("img");
+        reactionImg.src = "https://i.imgur.com/d3MvvkX.gif";
+        reactionImg.className = "reaction-img";
+        div.appendChild(reactionImg);
       }
 
-      chatWindow.appendChild(div);
+      if (msg.sender === "bot" && index === currentChat.length - 1) {
+        const span = document.createElement("span");
+        div.appendChild(span);
+        chatWindow.appendChild(div);
+        typeWriter(span, msg.text, 0);
+      } else {
+        const span = document.createElement("span");
+        span.textContent = msg.text;
+        div.appendChild(span);
+        chatWindow.appendChild(div);
+      }
     });
     chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
   }
@@ -533,44 +558,23 @@
     currentChat = [];
     renderMessages();
     renderHistory();
+    chatSessionId = Date.now();
   };
 
   searchInput.oninput = () => {
     renderHistory(searchInput.value);
   };
 
-  // Warm up backend
   fetch("https://rohitnegi-chatbot.onrender.com").catch((e) => {
     console.log("Warming up the server...");
   });
 
-  // 🔊 Add voice speaking for chatbot
-  window.speechSynthesis.onvoiceschanged = () => {
-    window.speechSynthesis.getVoices();
-  };
-
-  function speakText(text) {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    const voices = synth.getVoices();
-    const maleVoice = voices.find(v =>
-      v.name.toLowerCase().includes("male") ||
-      v.name.toLowerCase().includes("david") ||
-      v.name.toLowerCase().includes("english male")
-    );
-    if (maleVoice) {
-      utterance.voice = maleVoice;
-    }
-    utterance.rate = 1;
-    utterance.pitch = 1;
-    synth.cancel();
-    synth.speak(utterance);
-  }
-
-  // 🧠 Send user message to backend
   sendBtn.onclick = async () => {
     const userMsg = input.value.trim();
     if (!userMsg) return;
+
+    const sessionAtStart = chatSessionId;
+
     addMessage(userMsg, "user");
     input.value = "";
 
@@ -592,9 +596,11 @@
       if (!res.ok) throw new Error("Server error");
 
       const data = await res.json();
+
+      if (sessionAtStart !== chatSessionId) return;
+
       currentChat.pop();
       addMessage(data.reply, "bot");
-      speakText(data.reply); // 🔊 Voice response
 
     } catch (error) {
       currentChat.pop();
@@ -608,55 +614,8 @@
   });
 
   renderHistory();
-  function renderMessages() {
-  chatWindow.innerHTML = "";
-  currentChat.forEach((msg, index) => {
-    const div = document.createElement("div");
-    div.className = `message ${msg.sender}`;
-
-    // Copy button
-    const copyBtn = document.createElement("button");
-    copyBtn.className = "copy-btn";
-    copyBtn.innerHTML = "📋";
-    copyBtn.title = "Copy";
-    copyBtn.onclick = () => {
-      navigator.clipboard.writeText(msg.text).then(() => {
-        showToast("Message copied!");
-      });
-    };
-
-    div.appendChild(copyBtn);
-
-    // Check for funny reactions
-    const lowerText = msg.text.toLowerCase();
-    if (
-      msg.sender === "bot" &&
-      (lowerText.includes("hahaha") || lowerText.includes("lol") || lowerText.includes("majak") || lowerText.includes("funny"))
-    ) {
-      const reactionImg = document.createElement("img");
-      reactionImg.src = "https://i.imgur.com/d3MvvkX.gif"; // you can use any funny gif
-      reactionImg.className = "reaction-img";
-      div.appendChild(reactionImg);
-    }
-
-    // Typewriter effect for latest bot message
-    if (msg.sender === "bot" && index === currentChat.length - 1) {
-      const span = document.createElement("span");
-      div.appendChild(span);
-      chatWindow.appendChild(div);
-      typeWriter(span, msg.text, 0);
-    } else {
-      const span = document.createElement("span");
-      span.textContent = msg.text;
-      div.appendChild(span);
-      chatWindow.appendChild(div);
-    }
-  });
-
-  chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
-}
-
 </script>
+
 
 </body>
 </html>
