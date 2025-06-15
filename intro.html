@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home | Rohit Bhaiya Chatbot</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -14,56 +16,81 @@
     }
 
     body {
-      background-color: #f4f4f9;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
       color: #111;
       overflow-x: hidden;
     }
 
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
     .navbar {
-      background-color: #90b4eb;
+      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
       padding: 15px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       position: fixed;
       width: 100%;
       top: 0;
-      z-index: 999;
+      z-index: 9999;
     }
 
     .navbar a {
       text-decoration: none;
-      color: #111;
+      color: #ffffff;
       font-weight: 600;
       margin-right: 30px;
+      font-size: 18px;
+      transition: 0.3s;
     }
 
-    .home-button {
-      background-color: #d5793c;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
+    .navbar a:hover {
+      color: #00e5ff;
+    }
+    
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left a {
+  margin-right: 15px;
+}
+
+    .navbar-center {
+      flex: 1;
+      text-align: center;
+    }
+
+    .navbar-center a {
+      font-size: 22px;
+      font-weight: 700;
+      color: #00e5ff;
+      text-shadow: 1px 1px 10px rgba(0, 229, 255, 0.6);
     }
 
     .hero {
-      padding-top: 90px;
+      padding-top: 100px;
       text-align: center;
       padding-bottom: 30px;
-      background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-      animation: fadeIn 2s ease;
+      background: linear-gradient(135deg, #f6f9fc, #dff6fc);
     }
 
     .hero h1 {
-      font-size: 40px;
+      font-size: 44px;
       font-weight: 700;
       margin-bottom: 10px;
       color: #2e1a68;
     }
 
     .hero p {
-      font-size: 18px;
+      font-size: 20px;
       max-width: 700px;
       margin: 0 auto;
       color: #333;
@@ -76,80 +103,68 @@
       display: flex;
       gap: 25px;
       align-items: center;
-      animation: slideUp 1.5s ease;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
     }
 
     .profile-section img {
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
-      border: 4px solid #7b2ff7;
+      border: 5px solid #7b2ff7;
       object-fit: cover;
-    }
-
-    .profile-info {
-      flex: 1;
     }
 
     .profile-info h2 {
       color: #5a189a;
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 32px;
+      margin-bottom: 15px;
     }
 
-    .profile-info p {
-      font-size: 20px;
+    .profile-info ul {
+      list-style-type: disc;
+      padding-left: 20px;
       color: #0070cc;
-      line-height: 1.6;
-    }
-
-    .profile-info .highlight {
-      font-size: 26px;
-      color: #2e1a68;
-      font-weight: 700;
-      margin-bottom: 10px;
-      display: block;
+      font-size: 20px;
+      line-height: 1.9;
     }
 
     .cta-section {
       text-align: center;
       padding: 40px 20px;
-      background-color: #f7f2ff;
-      animation: fadeIn 2s ease-in;
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
     }
 
     .cta-section h2 {
-      font-size: 32px;
+      font-size: 34px;
       color: #7b2ff7;
       margin-bottom: 20px;
-    }
-
-    .cta-section p {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 30px;
     }
 
     .cta-section a {
       background: #7b2ff7;
       color: #fff;
-      padding: 10px 22px;
+      padding: 18px 28px;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
-      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(123, 47, 247, 0.5);
+      transition: all 0.3s ease-in-out;
     }
 
     .cta-section a:hover {
       background: #5a189a;
+      transform: scale(1.05);
     }
 
     .review-section {
       padding: 40px 20px;
       text-align: center;
       background: #e8f0ff;
-      animation: fadeIn 1.5s ease-in;
     }
 
     .review-section h2 {
@@ -165,14 +180,23 @@
       border-radius: 10px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .floating-chat {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      background: #ff6600;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 50%;
+      font-size: 26px;
+      box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+      cursor: pointer;
+      animation: bounce 2s infinite;
     }
 
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     footer {
@@ -185,55 +209,79 @@
   </style>
 </head>
 <body>
-  <div class="navbar">
-    <a href="#" class="home-button">Home</a>
-    <div>
-      <a href="index.html">Chatbot</a>
-      <a href="https://www.coderarmy.in/#meet-your-instructor2">About</a>
-      <a href="#nexus">Tutorials</a>
-      <a href="https://www.coderarmy.in/">Coder Army</a>
-    </div>
+  <div id="particles-js"></div>
+
+<div class="navbar">
+  <ul class="navbar-left">
+    <li><a href="army.html">🏡 Home</a></li>
+    <li><a href="home.html#nexus" class="back">&#8592; Back</a></li>
+  </ul>
+
+  <div class="navbar-center">
+    <a href="index.html">🚀 START CHAT</a>
   </div>
 
+  <div class="navbar-right">
+    <a href="intro.html#profile">About Us</a>
+    <a href="tutorials.html#nexus">Tutorials</a> <!-- If you have tutorials section -->
+    <a href="https://www.coderarmy.in/" target="_blank">Coder Army</a>
+  </div>
+</div>
+
+
   <section class="hero">
-    <h1>Learn with <span style="color:#ff6600;">Code Army</span></h1>
+    <h1 id="typing-text">Learn with <span style="color:#ff6600;">Code Army</span></h1>
     <p>Join our Nexus Batch – Designed for enthusiasts who want to build, learn, and grow fast!</p>
   </section>
 
-  <section class="profile-section">
+  <section class="profile-section" data-aos="fade-up">
     <img src="./rohitnegipick.jpeg" alt="Rohit Bhaiya">
     <div class="profile-info">
       <h2>Rohit Bhaiya 💻</h2>
-      <span class="highlight">Heartfelt Problem Solver, Instructor, and Visionary Leader</span>
-      <p>
-        Striving to make a difference by making technology better and impactful for society. <br>
-        Got Highest Placement in India of ₹2 Cr+ <br>
-        Post Graduate from IIT Guwahati, GATE CSE 2020 AIR - 202 <br><br>
-
-        🚀 Founder of <strong>Coder Army</strong> – Empowering thousands of students with practical tech skills. <br>
-        👨‍🏫 Mentor to 50,000+ learners across India and beyond. <br>
-        📺 Top Educator on YouTube with viral and conceptual teaching videos. <br>
-        🏅 Worked in multiple startups and MNCs in roles like Developer, Mentor, CTO. <br>
-        📖 Expert in Full Stack Development, Blockchain & System Design. <br>
-        🎯 Helped thousands crack GATE, interviews, internships, and placements. <br>
-        ❤️ Passionate about democratizing tech education for Tier 2 & 3 colleges. <br>
-      </p>
+      <ul>
+        <li>Placed with Highest Package in India: ₹2 Cr+</li>
+        <li>Post Graduate from IIT Guwahati (GATE CSE 2020 AIR - 202)</li>
+        <li>Founder of <strong>Coder Army</strong>, empowering 50K+ students</li>
+        <li>Top Educator on YouTube with viral conceptual videos</li>
+        <li>Worked as Developer, Mentor, CTO in startups & MNCs</li>
+        <li>Expert in Full Stack Dev, Blockchain, System Design</li>
+        <li>Mentored thousands for GATE, internships, placements</li>
+        <li>Promotes tech education in Tier 2 & 3 colleges</li>
+      </ul>
     </div>
   </section>
 
-  <section id="chatbot" class="cta-section">
-    <h2>Chat Now with Rohit Bhaiya</h2>
-    <p>Get answers, guidance, and mentorship instantly. Let’s talk!</p>
-    <a href="index.html">Open Chatbot</a>
+  <section id="chatbot" class="cta-section" data-aos="fade-up">
+    <h2>Talk with Chatbot 🤖</h2>
+    <a href="index.html">Start Chatting</a>
   </section>
 
-  <section id="nexus" class="review-section">
+  <section id="nexus" class="review-section" data-aos="fade-up">
     <h2>Nexus Batch Detailed Review</h2>
     <iframe src="https://rohittnegi.akamai.net.in/new-courses/4-web-development-block-chain"></iframe>
   </section>
 
+  <a class="floating-chat" href="index.html" title="Chat Now 🤖">💬</a>
+
   <footer>
     &copy; 2025 Rohit Bhaiya | Built for Code Army Community
   </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    let text = "Learn with Code Army";
+    let i = 0;
+    const typingTarget = document.getElementById("typing-text");
+    function type() {
+      if (i < text.length) {
+        typingTarget.innerHTML = text.substring(0, i+1);
+        i++;
+        setTimeout(type, 100);
+      }
+    }
+    window.onload = type;
+  </script>
 </body>
 </html>

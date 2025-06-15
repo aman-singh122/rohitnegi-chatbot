@@ -21,42 +21,58 @@
       flex-direction: column;
     }
 
-    nav {
-      height: 60px;
-      background: rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+nav {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+  border-bottom: 2px solid #00e5ff;
+}
 
-    nav .logo a {
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-    }
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-    }
+.logo a {
+  font-size: 32px;
+  font-weight: bold;
+  color: #00e5ff;
+  text-decoration: none;
+  text-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+}
 
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 16px;
-      transition: 0.3s;
-    }
+.nav-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
 
-    nav ul li a:hover {
-      color: #ffe600;
-    }
+.nav-links li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+.nav-links li a:hover {
+  color: #00e5ff;
+  background-color: rgba(0, 229, 255, 0.1);
+  box-shadow: 0 0 10px #00e5ff;
+}
+
 
     .chatbot-heading {
       font-size: 48px;
@@ -178,20 +194,98 @@
   color: #000;
   box-shadow: 0 0 30px #ffffff;
 }
+@media (max-width: 768px) {
+  .chatbot-heading {
+    font-size: 32px;
+    margin: 30px 0 15px;
+  }
+
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+
+  .hero-img {
+    width: 160px;
+    height: 190px;
+  }
+
+  .start-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  .image-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav {
+    padding: 20px 10px;
+  }
+
+  nav .logo a {
+    font-size: 24px;
+  }
+
+  nav ul li a {
+    font-size: 18px;
+  }
+  nav .logo a {
+    font-size: 26px;
+  }
+   .navbar-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .logo a {
+    font-size: 26px;
+  }
+
+  .nav-links li a {
+    font-size: 18px;
+  }
+
+  nav ul li a {
+    font-size: 18px;
+    padding: 8px 12px;
+  }
+}
+
 
   </style>
 </head>
 <body>
+<nav>
+  <div class="navbar-container">
+    <div class="logo">
+      <a href="index.html">💬 Rohit Bhaiya</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="intro.html">🏠ABOUT US</a></li>
+      <li><a href="index.html">🤖 Chatbot</a></li>
 
-  <nav>
-    <div class="logo"><a href="index.html">Rohit Bhaiya 💬</a></div>
-    <ul>
-      <li><a href="home.html">Home</a></li>
-      <li><a href="intro.html">About Us</a></li>
-      <li><a href="home.html#tutorials">Tutorials</a></li>
-      <li><a href="https://www.coderarmy.in/">Coder Army</a></li>
+      <li><a href="https://www.coderarmy.in/">💼 Coder Army</a></li>
     </ul>
-  </nav>
+  </div>
+</nav>
 
   <!-- ✅ New Section: Chatbot Heading -->
   <div class="chatbot-heading">
@@ -204,6 +298,7 @@
     <source src="https://cdn.coverr.co/videos/coverr-working-on-tech-project-7454/1080p.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+  
 
   <!-- 🔊 Background Music -->
   <audio autoplay loop>
@@ -218,9 +313,10 @@
   </video>
 
   <div class="hero-content">
+    
     <div class="image-row">
       <img src="./rohitsirepic.jpeg" alt="Rohit Sir" class="hero-img" />
-      <img src="./rohitsits.jpeg" alt="Rohit Sitting" class="hero-img" />
+      <img src="./rohittopeer.jpeg" alt="Rohit Sitting" class="hero-img" />
       <img src="./speechrohit.jpeg" alt="Rohit Speaking" class="hero-img" />
     </div>
     <a href="index.html" class="start-button">Start Chatting</a>

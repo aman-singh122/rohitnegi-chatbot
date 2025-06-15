@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥 Coder Army | Home of Revolution in Coding 🔥</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      overflow-x: hidden;
+      animation: fadeIn 2s ease;
+      position: relative;
+    }
+
+    .background-overlay {
+      position: fixed;
+      top: 100;
+      left:100;
+      width: 900px;
+      height: 900px;
+      background: url('./image.jpg') no-repeat center center;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 40px;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .navbar a {
+      color: #00e5ff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    .hero {
+      padding-top: 100px;
+      text-align: center;
+      padding-bottom: 60px;
+      background: rgba(0,0,0,0.3);
+      animation: slideUp 1.5s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      color: #00e5ff;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 15px #00e5ff;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { text-shadow: 0 0 10px #00e5ff; }
+      to { text-shadow: 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      color: #eee;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      color: #ff6f61;
+    }
+
+    .section p {
+      max-width: 850px;
+      margin: 15px auto;
+      font-size: 18px;
+      color: #ccc;
+      background: rgba(0,0,0,0.4);
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+
+    .about-coder-army ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .about-coder-army li {
+      font-size: 18px;
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cta {
+      background: linear-gradient(45deg, #00e5ff, #004aad);
+      padding: 50px 20px;
+      border-radius: 12px;
+      margin-top: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: slideUp 1.5s ease;
+    }
+
+    .cta a {
+      color: #004aad;
+      text-decoration: none;
+      font-weight: bold;
+      background: #fff;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 20px;
+      transition: 0.3s;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .cta a:hover {
+      background: #00e5ff;
+      color: #fff;
+    }
+
+    .founder-images {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .founder-images img {
+      width: 260px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      object-fit: cover;
+    }
+
+    footer {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      text-align: center;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay"></div>
+  <div class="navbar">
+    <div class="nav-links">
+      <a href="intro.html"><i class="fas fa-user"></i> About</a>
+      <a href="courses.html"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="index.html"><i class="fas fa-comments"></i> Chat</a>
+      <a href="#start"><i class="fas fa-rocket"></i> Start Chat</a>
+      <a href="https://www.coderarmy.in/"><i class="fas fa-code"></i> CODER ARMY</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <h1>Welcome to Coder Army</h1>
+    <p>India's most powerful tech revolution hub — bridging Tier 2/3 talent with world-class knowledge & opportunities.</p>
+  </section>
+
+  <section id="about" class="section about-coder-army">
+    <h2>Why Coder Army?</h2>
+    <p>Coder Army is not just a platform — it's a mission. A mission to uplift, empower, and transform students from every corner of India into world-class tech professionals. 🚀</p>
+    <ul>
+      <li>🔥 50K+ students mentored across India</li>
+      <li>🎓 Founded by IITian, GATE AIR-202 Achiever</li>
+      <li>💻 Highest placement record: ₹2 Cr+ domestic offer</li>
+      <li>📚 Hands-on learning in Full Stack, Blockchain, AI/ML</li>
+      <li>🎯 Personalized mentorship, real-world projects</li>
+      <li>🎥 Free YouTube content + Live doubt-solving</li>
+    </ul>
+  </section>
+
+  <section id="founder" class="section">
+    <h2>Meet Rohit Bhaiya 💼</h2>
+    <p>A visionary leader, teacher, developer, and founder who proved that great minds from small towns can rule the tech world. From AIR 202 in GATE CSE to mentoring thousands across India.</p>
+    <div class="founder-images">
+      <img src="./rohitsirepic.jpeg" alt="Rohit Sir Image 1">
+      <img src="./rohitsircool.jpeg" alt="Rohit Sir Image 2">
+    </div>
+  </section>
+
+  <section id="courses" class="section">
+    <h2>Top Courses Offered</h2>
+    <p>
+      - 🚀 Full Stack Dev (MERN) <br>
+      - 🔐 Blockchain Development <br>
+      - 🧠 DSA with C++ & Python <br>
+      - 🎓 GATE Mentorship <br>
+      - 📈 System Design & Project Building <br>
+    </p>
+  </section>
+
+  <section id="start" class="section cta">
+    <h2>Talk to Our AI Chatbot 🤖</h2>
+    <p>Get instant help, motivation, and tech guidance with Rohit Bhaiya's AI-powered chatbot.</p>
+    <a href="index.html"><i class="fas fa-robot"></i> Launch Chat Now</a>
+  </section>
+
+  <footer>
+    &copy; 2025 Coder Army | Crafted with 💖 to Empower Bharat
+  </footer>
+</body>
+</html>

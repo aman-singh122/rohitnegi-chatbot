@@ -7,6 +7,62 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
+    .message {
+  position: relative;
+  padding: 12px;
+  margin: 8px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.message.user {
+  background-color: #0078d4;
+  color: white;
+  align-self: flex-end;
+}
+
+.message.bot {
+  background-color: #eee;
+  color: #222;
+  align-self: flex-start;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+  font-size: 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #666;
+}
+
+.message:hover .copy-btn {
+  display: inline;
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #333;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  opacity: 0.9;
+  z-index: 9999;
+  font-size: 14px;
+}
+
+.reaction-img {
+  max-width: 200px;
+  display: block;
+  margin: 10px 0;
+}
+
+
     :root {
       --bg: #1e0a3c;
       --sidebar-bg: #2e1a68;
@@ -317,7 +373,6 @@
   </div>
   <ul class="nav-links">
     <li><a href="intro.html#profile">About Us</a></li>
-    <li><a href="home.html#nexus">Tutorials</a></li>
     <li><a href="intro.html#contact">Contact</a></li>
     <li><a href="https://www.coderarmy.in/">Coder Army</a></li>
   </ul>
@@ -356,171 +411,253 @@
     </div>
   </div>
 
+<script>
+  function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+  }, 2000);
+}
 
-  <script>
-    function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
-      alert("Google Sign-In Successful!");
+  function handleCredentialResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
+    alert("Google Sign-In Successful!");
+  }
+
+  const body = document.body;
+  const themeToggle = document.getElementById("theme-toggle");
+
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: "YOUR_CLIENT_ID_HERE.apps.googleusercontent.com",
+      callback: handleCredentialResponse
+    });
+
+    renderSignInBtn();
+
+    themeToggle.onclick = () => {
+      body.classList.toggle("light");
+      themeToggle.innerHTML = body.classList.contains("light") ? "\u263E" : "\u2600";
+      renderSignInBtn();
+    };
+  };
+
+  function renderSignInBtn() {
+    google.accounts.id.renderButton(
+      document.getElementById("google-signin-btn"),
+      {
+        theme: body.classList.contains("light") ? "outline" : "filled_black",
+        size: "large",
+        type: "standard",
+        text: "signin_with"
+      }
+    );
+  }
+
+  // 🧠 Chat logic
+  const input = document.getElementById("input");
+  const sendBtn = document.getElementById("send-btn");
+  const chatWindow = document.getElementById("chat-window");
+  const newChatBtn = document.getElementById("new-chat-btn");
+  const historyList = document.getElementById("history-list");
+  const searchInput = document.getElementById("search-input");
+
+  let chatHistory = [];
+  let currentChat = [];
+
+  function formatTime(date) {
+    let h = date.getHours();
+    let m = date.getMinutes();
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    m = m < 10 ? "0" + m : m;
+    return `${h}:${m} ${ampm}`;
+  }
+
+  function renderMessages() {
+    chatWindow.innerHTML = "";
+    currentChat.forEach((msg, index) => {
+      const div = document.createElement("div");
+      div.className = `message ${msg.sender}`;
+
+      if (msg.sender === "bot" && index === currentChat.length - 1) {
+        typeWriter(div, msg.text, 0);
+      } else {
+        div.textContent = msg.text;
+      }
+
+      chatWindow.appendChild(div);
+    });
+    chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+  }
+
+  function typeWriter(element, text, i) {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+      setTimeout(() => typeWriter(element, text, i + 1), 20);
     }
+  }
 
-    const body = document.body;
-    const themeToggle = document.getElementById("theme-toggle");
+  function addMessage(text, sender) {
+    currentChat.push({ text, sender, time: new Date() });
+    renderMessages();
+  }
 
-    window.onload = function () {
-      google.accounts.id.initialize({
-        client_id: "YOUR_CLIENT_ID_HERE.apps.googleusercontent.com",
-        callback: handleCredentialResponse
+  function renderHistory(filter = "") {
+    historyList.innerHTML = "";
+    chatHistory.forEach((chat, index) => {
+      const firstUserMsg = chat.find(m => m.sender === 'user');
+      if (firstUserMsg && firstUserMsg.text.toLowerCase().includes(filter.toLowerCase())) {
+        const div = document.createElement("div");
+        div.textContent = firstUserMsg.text.slice(0, 40);
+        div.title = firstUserMsg.text;
+        div.onclick = () => {
+          currentChat = [...chat];
+          renderMessages();
+        };
+        const timeSpan = document.createElement("span");
+        timeSpan.className = "time";
+        timeSpan.textContent = formatTime(firstUserMsg.time || new Date());
+        div.appendChild(timeSpan);
+        historyList.appendChild(div);
+      }
+    });
+  }
+
+  newChatBtn.onclick = () => {
+    if (currentChat.length) chatHistory.push([...currentChat]);
+    currentChat = [];
+    renderMessages();
+    renderHistory();
+  };
+
+  searchInput.oninput = () => {
+    renderHistory(searchInput.value);
+  };
+
+  // Warm up backend
+  fetch("https://rohitnegi-chatbot.onrender.com").catch((e) => {
+    console.log("Warming up the server...");
+  });
+
+  // 🔊 Add voice speaking for chatbot
+  window.speechSynthesis.onvoiceschanged = () => {
+    window.speechSynthesis.getVoices();
+  };
+
+  function speakText(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voices = synth.getVoices();
+    const maleVoice = voices.find(v =>
+      v.name.toLowerCase().includes("male") ||
+      v.name.toLowerCase().includes("david") ||
+      v.name.toLowerCase().includes("english male")
+    );
+    if (maleVoice) {
+      utterance.voice = maleVoice;
+    }
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    synth.cancel();
+    synth.speak(utterance);
+  }
+
+  // 🧠 Send user message to backend
+  sendBtn.onclick = async () => {
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+    addMessage(userMsg, "user");
+    input.value = "";
+
+    const typingMsg = { text: "Typing...", sender: "bot", time: new Date() };
+    currentChat.push(typingMsg);
+    renderMessages();
+
+    try {
+      const apiURL = location.hostname === "localhost"
+        ? "http://localhost:3000/chat"
+        : "https://rohitnegi-chatbot.onrender.com/chat";
+
+      const res = await fetch(apiURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg })
       });
 
-      renderSignInBtn();
+      if (!res.ok) throw new Error("Server error");
 
-      // Theme switch logic
-      themeToggle.onclick = () => {
-        body.classList.toggle("light");
-        themeToggle.innerHTML = body.classList.contains("light") ? "\u263E" : "\u2600";
-        renderSignInBtn(); // re-render sign-in button based on theme
-      };
-    };
+      const data = await res.json();
+      currentChat.pop();
+      addMessage(data.reply, "bot");
+      speakText(data.reply); // 🔊 Voice response
 
-    function renderSignInBtn() {
-      google.accounts.id.renderButton(
-        document.getElementById("google-signin-btn"),
-        {
-          theme: body.classList.contains("light") ? "outline" : "filled_black",
-          size: "large",
-          type: "standard",
-          text: "signin_with"
-        }
-      );
+    } catch (error) {
+      currentChat.pop();
+      addMessage("Server se response nahi mila, try again later.", "bot");
+      console.error(error);
     }
+  };
 
-    // 🧠 Chat logic below
-    const input = document.getElementById("input");
-    const sendBtn = document.getElementById("send-btn");
-    const chatWindow = document.getElementById("chat-window");
-    const newChatBtn = document.getElementById("new-chat-btn");
-    const historyList = document.getElementById("history-list");
-    const searchInput = document.getElementById("search-input");
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendBtn.click();
+  });
 
-    let chatHistory = [];
-    let currentChat = [];
-
-    function formatTime(date) {
-      let h = date.getHours();
-      let m = date.getMinutes();
-      const ampm = h >= 12 ? "PM" : "AM";
-      h = h % 12 || 12;
-      m = m < 10 ? "0" + m : m;
-      return `${h}:${m} ${ampm}`;
-    }
-
-    function renderMessages() {
+  renderHistory();
+  function renderMessages() {
   chatWindow.innerHTML = "";
   currentChat.forEach((msg, index) => {
     const div = document.createElement("div");
     div.className = `message ${msg.sender}`;
 
-    if (msg.sender === "bot" && index === currentChat.length - 1) {
-      typeWriter(div, msg.text, 0);
-    } else {
-      div.textContent = msg.text;
+    // Copy button
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "copy-btn";
+    copyBtn.innerHTML = "📋";
+    copyBtn.title = "Copy";
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(msg.text).then(() => {
+        showToast("Message copied!");
+      });
+    };
+
+    div.appendChild(copyBtn);
+
+    // Check for funny reactions
+    const lowerText = msg.text.toLowerCase();
+    if (
+      msg.sender === "bot" &&
+      (lowerText.includes("hahaha") || lowerText.includes("lol") || lowerText.includes("majak") || lowerText.includes("funny"))
+    ) {
+      const reactionImg = document.createElement("img");
+      reactionImg.src = "https://i.imgur.com/d3MvvkX.gif"; // you can use any funny gif
+      reactionImg.className = "reaction-img";
+      div.appendChild(reactionImg);
     }
 
-    chatWindow.appendChild(div);
+    // Typewriter effect for latest bot message
+    if (msg.sender === "bot" && index === currentChat.length - 1) {
+      const span = document.createElement("span");
+      div.appendChild(span);
+      chatWindow.appendChild(div);
+      typeWriter(span, msg.text, 0);
+    } else {
+      const span = document.createElement("span");
+      span.textContent = msg.text;
+      div.appendChild(span);
+      chatWindow.appendChild(div);
+    }
   });
+
   chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
 }
-function typeWriter(element, text, i) {
-  if (i < text.length) {
-    element.textContent += text.charAt(i);
-    chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
-    setTimeout(() => typeWriter(element, text, i + 1), 20); // speed control here
-  }
-}
 
+</script>
 
-    function addMessage(text, sender) {
-      currentChat.push({ text, sender, time: new Date() });
-      renderMessages();
-    }
-
-    function renderHistory(filter = "") {
-      historyList.innerHTML = "";
-      chatHistory.forEach((chat, index) => {
-        const firstUserMsg = chat.find(m => m.sender === 'user');
-        if (firstUserMsg && firstUserMsg.text.toLowerCase().includes(filter.toLowerCase())) {
-          const div = document.createElement("div");
-          div.textContent = firstUserMsg.text.slice(0, 40);
-          div.title = firstUserMsg.text;
-          div.onclick = () => {
-            currentChat = [...chat];
-            renderMessages();
-          };
-          const timeSpan = document.createElement("span");
-          timeSpan.className = "time";
-          timeSpan.textContent = formatTime(firstUserMsg.time || new Date());
-          div.appendChild(timeSpan);
-          historyList.appendChild(div);
-        }
-      });
-    }
-
-    newChatBtn.onclick = () => {
-      if (currentChat.length) chatHistory.push([...currentChat]);
-      currentChat = [];
-      renderMessages();
-      renderHistory();
-    };
-
-    searchInput.oninput = () => {
-      renderHistory(searchInput.value);
-    };
-fetch("https://rohitnegi-chatbot.onrender.com").catch((e) => {
-  console.log("Warming up the server...");
-});
-
-    sendBtn.onclick = async () => {
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
-      addMessage(userMsg, "user");
-      input.value = "";
-
-      const typingMsg = { text: "Typing...", sender: "bot", time: new Date() };
-      currentChat.push(typingMsg);
-      renderMessages();
-
-     try {
-  const apiURL = location.hostname === "localhost"
-    ? "http://localhost:3000/chat"
-    : "https://rohitnegi-chatbot.onrender.com/chat";
-
-  const res = await fetch(apiURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: userMsg })
-  });
-
-  if (!res.ok) throw new Error("Server error");
-
-  const data = await res.json();
-  currentChat.pop();
-  addMessage(data.reply, "bot");
-
-} catch (error) {
-  currentChat.pop();
-  addMessage("Server se response nahi mila, try again later.", "bot");
-  console.error(error);
-}
-
-    };
-
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") sendBtn.click();
-    });
-
-    renderHistory();
-    renderMessages();
-  </script>
 </body>
 </html>
 
