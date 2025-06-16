@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🔥ROHIT-NEGI   CHATBOT 🔥</title>
+  <title>🔥ROHIT-NEGI CHATBOT 🔥</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
     * {
       margin: 0;
@@ -19,7 +22,6 @@
       color: #fff;
       overflow-x: hidden;
       animation: fadeIn 2s ease;
-      position: relative;
     }
 
     .background-overlay {
@@ -30,7 +32,6 @@
       height: 900px;
       background: url('./image.jpg') no-repeat center center;
       background-size: cover;
-      background-position: center;
       opacity: 0.4;
       z-index: -1;
     }
@@ -44,8 +45,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px 40px;
-      background: rgba(0, 0, 0, 0.6);
+      padding: 22px 30px;
+      background: rgba(0, 0, 0, 0.65);
+      height: 90px;
       position: fixed;
       width: 100%;
       z-index: 999;
@@ -53,39 +55,68 @@
       backdrop-filter: blur(10px);
     }
 
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      align-items: center;
+    .menu-toggle {
+      display: none;
+      font-size: 30px;
+      color: #00e5ff;
+      cursor: pointer;
+      position: absolute;
+      left: 20px;
     }
 
-    .navbar a {
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 35px;
+      list-style: none;
+    }
+
+    .nav-links li a {
       color: #00e5ff;
       text-decoration: none;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 18px;
       transition: all 0.3s;
     }
 
-    .navbar a:hover {
+    .nav-links li a:hover {
       color: #fff;
       transform: scale(1.05);
     }
 
+    @media (max-width: 768px) {
+      .navbar {
+        justify-content: space-between;
+        padding: 22px 20px;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 90px;
+        right: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.9);
+        padding: 20px;
+        align-items: center;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
     .hero {
-      padding-top: 100px;
+      padding-top: 120px;
       text-align: center;
       padding-bottom: 60px;
       background: rgba(0,0,0,0.3);
-      animation: slideUp 1.5s ease;
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .hero h1 {
@@ -93,12 +124,6 @@
       color: #00e5ff;
       font-family: 'Orbitron', sans-serif;
       text-shadow: 0 0 15px #00e5ff;
-      animation: pulse 2s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { text-shadow: 0 0 10px #00e5ff; }
-      to { text-shadow: 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
     }
 
     .hero p {
@@ -148,7 +173,6 @@
       border-radius: 12px;
       margin-top: 40px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: slideUp 1.5s ease;
     }
 
     .cta a {
@@ -191,34 +215,24 @@
       color: #aaa;
       font-size: 14px;
     }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .hero h1 {
-        font-size: 34px;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="background-overlay"></div>
   <div class="navbar">
-    <div class="nav-links">
-     <ul class="nav-links">
-  <li><a href="home.html">🏡 Home</a></li>
-  <li><a href="intro.html">🏠 About Us</a></li>
-  <li><a href="old_index.html">🤖 Chatbot</a></li>
-  <li><a href="https://www.coderarmy.in/" target="_blank">💼 Coder Army</a></li>
-</ul>
-
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
     </div>
+    <ul class="nav-links">
+      <li><a href="home.html">🏡 Home</a></li>
+      <li><a href="intro.html">🏠 About Us</a></li>
+      <li><a href="old_index.html">🤖 Chatbot</a></li>
+      <li><a href="https://www.coderarmy.in/" target="_blank">💼 Coder Army</a></li>
+    </ul>
   </div>
 
   <section class="hero">
-    <h1>Welcome to Coder Army</h1>
+    <h1 class="typed-text"></h1>
     <p>India's most powerful tech revolution hub — bridging Tier 2/3 talent with world-class knowledge & opportunities.</p>
   </section>
 
@@ -264,5 +278,25 @@
   <footer>
     &copy; 2025 Coder Army | Crafted with 💖 to Empower Bharat
   </footer>
+
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+
+    var typed = new Typed(".typed-text", {
+      strings: ["Welcome to Coder Army", "Build. Learn. Lead.", "Join the Tech Revolution!"],
+      typeSpeed: 60,
+      backSpeed: 40,
+      loop: true
+    });
+
+    ScrollReveal().reveal('.section', {
+      distance: '60px',
+      duration: 1500,
+      origin: 'bottom',
+      reset: true
+    });
+  </script>
 </body>
 </html>
