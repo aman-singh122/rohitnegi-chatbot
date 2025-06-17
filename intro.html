@@ -6,6 +6,7 @@
   <title>Home | Rohit Bhaiya Chatbot</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     * {
@@ -39,6 +40,12 @@
       width: 100%;
       top: 0;
       z-index: 9999;
+      animation: slideDown 1s ease;
+    }
+
+    @keyframes slideDown {
+      from { top: -60px; }
+      to { top: 0; }
     }
 
     .navbar a {
@@ -52,16 +59,13 @@
 
     .navbar a:hover {
       color: #00e5ff;
+      transform: scale(1.1);
     }
-    
-.navbar-left, .navbar-right {
-  display: flex;
-  align-items: center;
-}
 
-.navbar-left a {
-  margin-right: 15px;
-}
+    .navbar-left, .navbar-right {
+      display: flex;
+      align-items: center;
+    }
 
     .navbar-center {
       flex: 1;
@@ -76,10 +80,16 @@
     }
 
     .hero {
-      padding-top: 100px;
+      padding-top: 120px;
       text-align: center;
-      padding-bottom: 30px;
+      padding-bottom: 50px;
       background: linear-gradient(135deg, #f6f9fc, #dff6fc);
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     .hero h1 {
@@ -101,8 +111,10 @@
       margin: 40px auto;
       padding: 20px;
       display: flex;
+      flex-wrap: wrap;
       gap: 25px;
       align-items: center;
+      justify-content: center;
       background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -116,6 +128,13 @@
       border-radius: 50%;
       border: 5px solid #7b2ff7;
       object-fit: cover;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     .profile-info h2 {
@@ -125,7 +144,7 @@
     }
 
     .profile-info ul {
-      list-style-type: disc;
+      list-style-type: square;
       padding-left: 20px;
       color: #0070cc;
       font-size: 20px;
@@ -178,6 +197,7 @@
       height: 500px;
       border: none;
       border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
     .floating-chat {
@@ -186,7 +206,7 @@
       right: 30px;
       background: #ff6600;
       color: #fff;
-      padding: 14px 18px;
+      padding: 16px;
       border-radius: 50%;
       font-size: 26px;
       box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
@@ -206,6 +226,24 @@
       font-size: 13px;
       color: #555;
     }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 10px;
+      }
+      .navbar-left, .navbar-right {
+        flex-direction: column;
+        margin: 10px 0;
+      }
+      .navbar-center {
+        margin: 10px 0;
+      }
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -214,6 +252,7 @@
 <div class="navbar">
   <ul class="navbar-left">
     <li><a href="index.html">🏡 Home</a></li>
+    <li><a href="story.html">💡MOTIVATION </a></li>
     <li><a href="home.html#nexus" class="back">&#8592; Back</a></li>
   </ul>
 

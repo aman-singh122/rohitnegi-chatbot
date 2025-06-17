@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rohit Bhaiya Motivation Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /*––––– Reset & Base –––––*/
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body {
+      background: #0f2027; background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff; overflow-x:hidden; min-height:100vh; position:relative;
+    }
+    a { text-decoration:none; }
+    img, iframe { display:block; }
+
+    /*––––– Sparkle Effect –––––*/
+    .sparkle {
+      position:absolute; width:5px; height:5px; background:#00f2fe;
+      border-radius:50%; opacity:0.8; animation:float 5s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity:0.8; }
+      50% { opacity:0.3; }
+      100% { transform: translateY(-700px) scale(0.2); opacity:0; }
+    }
+
+    /*––––– Navigation –––––*/
+    nav { background:#111; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 10px rgba(0,0,0,0.4); position:sticky; top:0; z-index:10; }
+    .logo a {
+      font-size:32px; font-weight:700; color:#00f2fe;
+      animation:neon 2s ease-in-out infinite alternate;
+    }
+    @keyframes neon {
+      from { text-shadow:0 0 5px #00f2fe, 0 0 10px #00f2fe; }
+      to { text-shadow:0 0 20px #00f2fe, 0 0 30px #00f2fe; }
+    }
+    .nav-links { list-style:none; display:flex; gap:25px; }
+    .nav-links a {
+      color:#fff; font-weight:600; transition:0.3s; position:relative;
+    }
+    .nav-links a::after {
+      content:'';
+      position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#00f2fe; transition:0.3s;
+    }
+    .nav-links a:hover::after { width:100%; }
+
+    /*––––– Container & Headings –––––*/
+    .container { max-width:1200px; padding:40px 20px; margin:auto; }
+    .heading {
+      font-size:36px; text-align:center; color:#00f2fe;
+      margin:40px 0 30px; text-shadow:0 0 12px #00f2fe;
+      animation:fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(-20px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    /*––––– Daily Quote –––––*/
+    .daily-quote {
+      background:rgba(255,255,255,0.08); border-left:5px solid #00f2fe;
+      padding:20px; font-size:22px; margin-bottom:40px;
+      border-radius:8px; animation:bounce 4s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%,100% { transform:translateY(0); }
+      50% { transform:translateY(-8px); }
+    }
+
+    /*––––– Video Section –––––*/
+    .video-section {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px; justify-items:center;
+      margin-bottom:60px;
+    }
+    .video-section iframe {
+      width:100%; max-width:550px;
+      aspect-ratio:16/9;
+      border:5px solid #00f2fe; border-radius:12px;
+      box-shadow:0 0 25px rgba(0,242,254,0.6);
+      transition:transform 0.3s, filter 0.3s;
+    }
+    .video-section iframe:hover {
+      transform:scale(1.02); filter:brightness(1.05);
+    }
+
+    /*––––– Gallery –––––*/
+    .gallery {
+      display:flex; flex-wrap:wrap; gap:20px; justify-content:center;
+      margin-bottom:60px;
+    }
+    .gallery img {
+      width:200px; height:140px; object-fit:cover;
+      border:3px solid #00f2fe; border-radius:12px;
+      box-shadow:0 0 12px rgba(0,242,254,0.5);
+      transition:transform 0.3s;
+    }
+    .gallery img:hover { transform:scale(1.1) rotate(1deg); }
+
+    /*––––– Quote List –––––*/
+    .quote-list {
+      columns:2; column-gap:40px; font-size:18px; line-height:1.8;
+      animation:fadeIn 1.5s ease-in-out;
+      margin-bottom:60px;
+    }
+    .quote-list p {
+      margin-bottom:20px; break-inside:avoid;
+      background:rgba(255,255,255,0.05);
+      padding:12px; border-left:4px solid #00f2fe; border-radius:6px;
+      position:relative;
+    }
+    .quote-list p::before {
+      content:"“"; font-size:32px; position:absolute; top:-10px; left:-6px;
+      color:#00f2fe; font-family:'Times New Roman', serif;
+    }
+
+    /*––––– Story & Submission –––––*/
+    .story-section, .submit-story {
+      margin-bottom:60px; animation:fadeIn 1.5s ease-in-out;
+    }
+    .story-section p {
+      font-size:18px; line-height:1.6; text-align:justify;
+    }
+    .submit-story textarea {
+      width:100%; height:150px; padding:15px; border:none;
+      border-radius:8px; resize:vertical; background:#fff; color:#000;
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    }
+    .submit-story button {
+      margin-top:15px; padding:12px 30px;
+      background:#00f2fe; color:#000; border:none; border-radius:8px;
+      font-weight:bold; cursor:pointer; transition:0.3s, transform 0.2s;
+    }
+    .submit-story button:hover {
+      background:#00bcd4; color:#fff; transform:scale(1.02);
+    }
+
+    /*––––– Footer –––––*/
+    footer {
+      background:#111; color:#ccc; text-align:center;
+      padding:20px; animation:fadeIn 1.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sparkles Container -->
+  <div id="sparkle-container"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo"><a href="old_index.html">💬 Rohit Bhaiya</a></div>
+    <ul class="nav-links">
+      <li><a href="intro.html">🏠 ABOUT US</a></li>
+      <li><a href="0ld_index.html">🤖 Chatbot</a></li>
+      <li><a href="https://www.coderarmy.in/">💼 Coder Army</a></li>
+      <li><a href="index.html"> HOME</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <!-- Video Section -->
+    <div class="heading">🎥 Special Motivation Videos</div>
+    <div class="video-section">
+      <iframe src="https://www.youtube.com/embed/g-R9bGYNNX8?si=xYi2fmDPg1CTq5Y1" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/oxp0Gojn3p8?si=pG2Lw1rRWpsUD--s" allowfullscreen></iframe>
+    </div>
+
+    <!-- Daily Quote -->
+    <div class="heading">🔥 Daily Motivation by Rohit Bhaiya</div>
+    <div class="daily-quote" id="dailyQuote">Loading...</div>
+
+    <!-- Photo Gallery -->
+    <div class="heading">📸 Rohit Bhaiya Photo Gallery</div>
+    <div class="gallery" id="photoGallery">
+      <img src="./scrohit.jpeg" alt="">
+      <img src="./rohitsirepic.jpeg" alt="">
+      <img src="./scrohit2.jpeg" alt="">
+      <img src="./scrohit3.jpeg" alt="">
+      <img src="./scrohit4.jpeg" alt="">
+      <img src="./rohittopeer.jpeg" alt="">
+      <img src="./scrohit6.jpeg" alt="">
+      <img src="./scrohit7.jpeg" alt="">
+    </div>
+
+    <!-- Motivational Quotes List -->
+    <div class="heading">🧠 50+ Powerful Motivational Quotes</div>
+    <div class="quote-list" id="quoteList"></div>
+
+    <!-- Story Section -->
+    <div class="story-section" id="about">
+      <div class="heading">📖 Rohit Bhaiya's Success Story</div>
+      <p>From a small town to becoming a mentor and inspiration for thousands of students, Rohit Bhaiya’s journey is full of hard work, dedication, and discipline. Despite early struggles, he kept pushing boundaries and proved that consistency and clarity can create miracles.</p>
+    </div>
+
+    <!-- Submit Your Story -->
+    <div class="submit-story" id="motivation">
+      <div class="heading">📝 Share Your Story with Bhaiya</div>
+      <textarea id="userStory" placeholder="Write your success story or how Bhaiya inspired you..."></textarea>
+      <button onclick="submitStory()">Submit</button>
+    </div>
+  </div>
+
+  <footer>Made with ❤️ by Technical Nikhil | All rights reserved</footer>
+
+  <script>
+    // Sparkles generator
+    const sparkleCnt = document.getElementById('sparkle-container');
+    for(let i=0;i<50;i++){
+      let s=document.createElement('div');
+      s.classList.add('sparkle');
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*100 + '%';
+      s.style.animationDuration = (3+Math.random()*5)+'s';
+      s.style.width = s.style.height = (3+Math.random()*5)+'px';
+      sparkleCnt.appendChild(s);
+    }
+
+    // Quotes array
+    const quoteData = [
+      "Believe in yourself and all that you are.",
+      "Push yourself, because no one else is going to do it for you.",
+      "Success is what comes after you stop making excuses.",
+      "Dream it. Wish it. Do it.",
+      "Stay focused and never give up.",
+      "Every day is a second chance.",
+      "Doubt kills more dreams than failure ever will.",
+      "Don’t stop until you’re proud.",
+      "Your limitation—it’s only your imagination.",
+      "Work hard in silence, let your success be the noise.",
+      "Wake up with determination. Go to bed with satisfaction.",
+      "Do something today that your future self will thank you for.",
+      "Little things make big days.",
+      "It's going to be hard, but hard does not mean impossible.",
+      "Don’t wait for opportunity. Create it.",
+      "Great things never come from comfort zones.",
+      "Dream bigger. Do bigger.",
+      "Success doesn’t just find you. You have to go out and get it.",
+      "The harder you work for something, the greater you’ll feel when you achieve it.",
+      "Dream it. Believe it. Build it.",
+      "Push through the pain. Don’t stop.",
+      "Keep going. Everything you need will come to you.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "Make each day your masterpiece.",
+      "Discipline is the bridge between goals and accomplishment.",
+      "Be so good they can’t ignore you.",
+      "Act as if what you do makes a difference. It does.",
+      "Be yourself; everyone else is already taken.",
+      "Success is not in what you have, but who you are.",
+      "It always seems impossible until it’s done.",
+      "Opportunities don't happen. You create them.",
+      "You don’t have to be great to start, but you have to start to be great.",
+      "If you're going through hell, keep going.",
+      "Your only limit is your mind.",
+      "Hard work beats talent when talent doesn't work hard.",
+      "One day or day one. You decide.",
+      "Don't wish for it. Work for it.",
+      "The best view comes after the hardest climb.",
+      "Success is not for the lazy.",
+      "Fall seven times, stand up eight.",
+      "The secret of getting ahead is getting started.",
+      "Turn your wounds into wisdom.",
+      "Don’t be pushed around by the fears in your mind.",
+      "Be a voice, not an echo.",
+      "You are capable of amazing things.",
+      "Stay positive, work hard, make it happen.",
+      "Difficult roads often lead to beautiful destinations.",
+      "Focus on the step in front of you, not the whole staircase.",
+      "Don’t be afraid to give up the good to go for the great."
+    ];
+
+    // Daily quote display
+    document.getElementById('dailyQuote').textContent =
+      quoteData[Math.floor(Math.random()*quoteData.length)];
+
+    // Quote list rendering
+    const ql = document.getElementById('quoteList');
+    quoteData.forEach(q=> {
+      const p = document.createElement('p');
+      p.textContent = q;
+      ql.appendChild(p);
+    });
+
+    // Submit story function
+    function submitStory(){
+      const story = document.getElementById('userStory').value.trim();
+      if(!story) return alert('Please write something before submitting.');
+      alert('Your story has been submitted! Thank you 😊');
+      document.getElementById('userStory').value='';
+    }
+  </script>
+</body>
+</html>
