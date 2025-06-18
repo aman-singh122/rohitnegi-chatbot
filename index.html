@@ -294,11 +294,9 @@
 .video-section {
   position: relative;
   width: 100%;
-  height: 100vh; /* You can also use: height: auto; min-height: 600px; */
   overflow: hidden;
 }
 
-/* 📹 Video will only be background of the video-section */
 .video-section .background-video {
   position: absolute;
   top: 0;
@@ -646,33 +644,6 @@
 
   <!-- Scripts -->
   <script>
-
-  
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  // Google Sign-in
-  window.googleSignIn = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        alert("Welcome, " + user.displayName);
-        document.getElementById("auth-box").style.display = "none";
-      })
-      .catch((error) => {
-        alert("Error: " + error.message);
-      });
-  };
-
-  // Sign-out
-  window.googleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        alert("Signed out!");
-      });
-  };
 
   // Check login state
   onAuthStateChanged(auth, (user) => {
