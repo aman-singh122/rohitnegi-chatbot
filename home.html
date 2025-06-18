@@ -14,65 +14,64 @@
     }
 
     body {
-      background: linear-gradient(120deg, #7b2ff7, #f107a3);
+      background: #000;
       color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-nav {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
-  border-bottom: 2px solid #00e5ff;
-}
+    nav {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+      border-bottom: 2px solid #00e5ff;
+    }
 
-.navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-.logo a {
-  font-size: 32px;
-  font-weight: bold;
-  color: #00e5ff;
-  text-decoration: none;
-  text-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
-}
+    .logo a {
+      font-size: 32px;
+      font-weight: bold;
+      color: #00e5ff;
+      text-decoration: none;
+      text-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+    }
 
-.nav-links {
-  display: flex;
-  gap: 25px;
-  list-style: none;
-}
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
 
-.nav-links li a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 0 transparent;
-}
+    .nav-links li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
 
-.nav-links li a:hover {
-  color: #00e5ff;
-  background-color: rgba(0, 229, 255, 0.1);
-  box-shadow: 0 0 10px #00e5ff;
-}
-
+    .nav-links li a:hover {
+      color: #00e5ff;
+      background-color: rgba(0, 229, 255, 0.1);
+      box-shadow: 0 0 10px #00e5ff;
+    }
 
     .chatbot-heading {
       font-size: 48px;
@@ -84,248 +83,198 @@ nav {
     }
 
     .hero-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-.bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-  filter: brightness(0.4) contrast(1.3) saturate(1.2);
-}
-.hero-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+    /* ✅ Bright video with enhanced contrast */
+    .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      filter: brightness(0.7) contrast(1.2);
+    }
 
-.bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-  filter: brightness(0.4) contrast(1.2);
-}
+    /* ✅ Overlay layer for clear text visibility */
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
 
-.hero-content {
-  position: relative;
-  z-index: 10;
-  color: #ffffff;
-  padding: 20px;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      color: #ffffff;
+      padding: 20px;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-.image-row {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
+    .image-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
 
-.hero-img {
-  width: 260px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 24px;
-  border: 4px solid #00e5ff;
-  box-shadow: 0 0 35px rgba(0, 229, 255, 0.9);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
+    .hero-img {
+      width: 260px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 4px solid #00e5ff;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.9);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
 
-.hero-img:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 50px #00e5ff;
-}
+    .hero-img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 50px #00e5ff;
+    }
 
-.hero-content h1 {
-  font-size: 3.5rem;
-  text-shadow: 2px 2px 10px rgba(0, 229, 255, 0.7);
-  margin-bottom: 15px;
-}
+    .hero-content h1 {
+      font-size: 3.5rem;
+      text-shadow: 2px 2px 10px rgba(0, 229, 255, 0.7);
+      margin-bottom: 15px;
+    }
 
-.hero-content .highlight {
-  color: #00e5ff;
-}
+    .hero-content .highlight {
+      color: #00e5ff;
+    }
 
-.hero-content p {
-  font-size: 1.4rem;
-  color: #cceeff;
-  margin-bottom: 40px;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
-}
+    .hero-content p {
+      font-size: 1.4rem;
+      color: #cceeff;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+    }
 
-.start-button {
-  background: #00e5ff;
-  color: #000;
-  padding: 16px 40px;
-  border-radius: 40px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-decoration: none;
-  transition: 0.3s ease;
-  box-shadow: 0 0 20px #00e5ff;
-}
+    .start-button {
+      background: #00e5ff;
+      color: #000;
+      padding: 16px 40px;
+      border-radius: 40px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: 0.3s ease;
+      box-shadow: 0 0 20px #00e5ff;
+    }
 
-.start-button:hover {
-  background: #ffffff;
-  color: #000;
-  box-shadow: 0 0 30px #ffffff;
-}
-@media (max-width: 768px) {
-  .chatbot-heading {
-    font-size: 32px;
-    margin: 30px 0 15px;
-  }
+    .start-button:hover {
+      background: #ffffff;
+      color: #000;
+      box-shadow: 0 0 30px #ffffff;
+    }
 
-  
-  .hero-content h1 {
-    font-size: 2rem;
-  }
+    @media (max-width: 768px) {
+      .chatbot-heading {
+        font-size: 32px;
+        margin: 30px 0 15px;
+      }
 
-  .hero-content p {
-    font-size: 1rem;
-    margin-bottom: 25px;
-  }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
 
-  .hero-img {
-    width: 160px;
-    height: 190px;
-  }
+      .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+      }
 
-  .start-button {
-    padding: 12px 25px;
-    font-size: 1rem;
-  }
+      .hero-img {
+        width: 160px;
+        height: 190px;
+      }
 
-  .image-row {
-    flex-direction: column;
-    gap: 20px;
-  }
+      .start-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+      }
 
-  nav ul {
-    flex-direction: column;
-    gap: 15px;
-  }
+      .image-row {
+        flex-direction: column;
+        gap: 20px;
+      }
 
-  nav {
-    padding: 20px 10px;
-  }
+      .navbar-container {
+        flex-direction: column;
+        align-items: center;
+      }
 
-  nav .logo a {
-    font-size: 24px;
-  }
+      .nav-links {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 10px;
+      }
 
-  nav ul li a {
-    font-size: 18px;
-  }
-  nav .logo a {
-    font-size: 26px;
-  }
-   .navbar-container {
-    flex-direction: column;
-    align-items: center;
-  }
+      .logo a {
+        font-size: 26px;
+      }
 
-  .nav-links {
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 10px;
-  }
-
-  .logo a {
-    font-size: 26px;
-  }
-
-  .nav-links li a {
-    font-size: 18px;
-  }
-
-  nav ul li a {
-    font-size: 18px;
-    padding: 8px 12px;
-  }
-}
-
-
+      .nav-links li a {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
-<nav>
-  <div class="navbar-container">
-    <div class="logo">
-      <a href="old_index.html">💬 Rohit Bhaiya</a>
+
+  <nav>
+    <div class="navbar-container">
+      <div class="logo">
+        <a href="old_index.html">💬 Rohit Bhaiya</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="story.html">💡MOTIVATION </a></li>
+        <li><a href="intro.html">🏠ABOUT US</a></li>
+        <li><a href="old_index.html">🤖 Chatbot</a></li>
+        <li><a href="https://www.coderarmy.in/">💼 Coder Army</a></li>
+      </ul>
     </div>
-    <ul class="nav-links">
-      <li><a href="story.html">💡MOTIVATION </a></li>
-      <li><a href="intro.html">🏠ABOUT US</a></li>
-      <li><a href="old_index.html">🤖 Chatbot</a></li>
+  </nav>
 
-      <li><a href="https://www.coderarmy.in/">💼 Coder Army</a></li>
-    </ul>
-  </div>
-</nav>
-
-  <!-- ✅ New Section: Chatbot Heading -->
   <div class="chatbot-heading">
     🤖 Talk with Rohit Negi Chatbot — Free
   </div>
 
- <div class="hero-section">
-  <!-- 🔁 Background Tech Video -->
-  <video autoplay muted loop class="bg-video">
-    <source src="https://cdn.coverr.co/videos/coverr-working-on-tech-project-7454/1080p.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  
+  <div class="hero-section">
+    <!-- ✅ Background Local Video -->
+    <video autoplay muted loop class="bg-video">
+      <source src="./rohitvideo.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
 
-  <!-- 🔊 Background Music -->
-  <audio autoplay loop>
-    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kevin_MacLeod/Tech_Talk/Kevin_MacLeod_-_Tech_Talk.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-<div class="hero-section">
-  <video autoplay muted loop class="bg-video">
-    <source src="your-tech-bg.mp4" type="video/mp4" />
-    Your browser does not support HTML5 video.
-  </video>
-
-  <div class="hero-content">
-    
-    <div class="image-row">
-      <img src="./rohitsirepic.jpeg" alt="Rohit Sir" class="hero-img" />
-      <img src="./rohittopeer.jpeg" alt="Rohit Sitting" class="hero-img" />
-      <img src="./speechrohit.jpeg" alt="Rohit Speaking" class="hero-img" />
+    <div class="hero-content">
+      <div class="image-row">
+        <img src="./rohitsirepic.jpeg" alt="Rohit Sir" class="hero-img" />
+        <img src="./rohittopeer.jpeg" alt="Rohit Sitting" class="hero-img" />
+        <img src="./speechrohit.jpeg" alt="Rohit Speaking" class="hero-img" />
+      </div>
+      <a href="old_index.html" class="start-button">Start Chatting</a>
+      <h1>Welcome to <span class="highlight">Rohit Bhaiya Chatbot</span></h1>
+      <p>🚀 Get career guidance, personal mentorship & support from your favorite mentor!</p>
     </div>
-    <a href="old_index.html" class="start-button">Start Chatting</a>
-    
-    <h1>Welcome to <span class="highlight">Rohit Bhaiya Chatbot</span></h1>
-    <p>🚀 Get career guidance, personal mentorship & support from your favorite mentor!</p>
   </div>
-</div>
 
 </body>
 </html>
